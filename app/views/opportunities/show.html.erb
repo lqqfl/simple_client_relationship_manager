@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @opportunity.name %>
+</p>
+
+<p>
+  <strong>Note:</strong>
+  <%= @opportunity.note %>
+</p>
+
+<%= link_to 'Edit', edit_opportunity_path(@opportunity) %> |
+<%= link_to 'Back', opportunities_path %>
