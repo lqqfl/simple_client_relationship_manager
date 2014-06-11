@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  company_id: 
+  contact_id: 
+  user_id: 
+  opportunity_id: 
+  activity_id: 
+  cotract_id: 
+
+two:
+  company_id: 
+  contact_id: 
+  user_id: 
+  opportunity_id: 
+  activity_id: 
+  cotract_id: 

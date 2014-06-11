@@ -1,0 +1,16 @@
+%p#notice= notice
+%p
+  %strong Name:
+  = @contract.name
+%p
+  %strong Amount:
+  = @contract.amount
+%p
+  %strong Note:
+  = @contract.note
+%p
+  %strong Time:
+  = @contract.time
+= link_to 'Edit', edit_contract_path(@contract)
+|
+\#{link_to 'Back', contracts_path}
