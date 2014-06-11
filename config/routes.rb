@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :activities
+
   resources :opportunities
 
   resources :users
