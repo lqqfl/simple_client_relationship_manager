@@ -1,10 +1,25 @@
-%p#notice= notice
-%p
-  %strong Name:
-  = @contact.name
-%p
-  %strong Note:
-  = @contact.note
-= link_to 'Edit', edit_contact_path(@contact)
-|
-\#{link_to 'Back', contacts_path}
+.jumbotron
+  %p
+    %strong Name:
+    = @contact.name
+  %p
+    %strong Note:
+    = @contact.note
+  %p
+    %strong Users:
+    - users = search_users(@contact.id)
+    - if users.present?
+      = users
+    - else
+      Nothing
+  %p
+    %strong Companies:
+    - companies = search_companies(@contact.id)
+    - if companies.present?
+      = search_companies(@contact.id) 
+    -else
+      Nothing
+  .btn.btn-info  
+    = link_to 'Edit', edit_contact_path(@contact)
+  .btn.btn-info  
+    = link_to 'Back', contacts_path

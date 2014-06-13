@@ -5,5 +5,12 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
+    / = javascript_tag "alert('#{params.inspect}')"
   %body
-    = yield
+    %header
+      = render 'layouts/header'
+    .container
+      .text-center
+        = yield
+    %footer
+      = render 'layouts/footer'

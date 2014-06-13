@@ -1,13 +1,11 @@
-%p#notice= notice
-%p
-  %strong Name:
-  = @activity.name
-%p
-  %strong Time:
-  = @activity.time
-%p
-  %strong Note:
-  = @activity.note
-= link_to 'Edit', edit_activity_path(@activity)
-|
-\#{link_to 'Back', activities_path}
+.jumbotron
+  %p
+    %strong Name:
+    = @activity.name
+  %p
+    %strong Note:
+    = @activity.note
+  .btn.btn-info  
+    = link_to 'Edit', edit_activity_path(@activity)
+  .btn.btn-info  
+    = link_to 'Back', activities_path

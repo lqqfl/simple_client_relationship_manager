@@ -1,5 +1,6 @@
 %h1 Editing contract
 = render 'form'
-= link_to 'Show', @contract
-|
-\#{link_to 'Back', contracts_path}
+.btn.btn-info
+  = link_to 'Show', @contract
+.btn.btn-info
+  = link_to 'Back', contracts_path

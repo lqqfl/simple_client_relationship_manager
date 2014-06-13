@@ -1,10 +1,11 @@
-%p#notice= notice
-%p
-  %strong Name:
-  = @user.name
-%p
-  %strong Note:
-  = @user.note
-= link_to 'Edit', edit_user_path(@user)
-|
-\#{link_to 'Back', users_path}
+.jumbotron
+  %p
+    %strong Name:
+    = @user.name
+  %p
+    %strong Note:
+    = @user.note
+  .btn.btn-info  
+    = link_to 'Edit', edit_user_path(@user)
+  .btn.btn-info  
+    = link_to 'Back', users_path

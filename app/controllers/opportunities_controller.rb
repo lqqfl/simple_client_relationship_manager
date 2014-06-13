@@ -5,6 +5,7 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities.json
   def index
     @opportunities = Opportunity.all
+    @opportunity_counts = Opportunity.count
   end
 
   # GET /opportunities/1

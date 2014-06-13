@@ -1,17 +1,27 @@
 %h1 Listing contacts
-%table
+%span.badge 
+  = @contact_counts
+%table.table.table-striped.talbe-hover
   %thead
     %tr
-      %th Name
-      %th Note
-      %th{:colspan => "3"}
+      %th.col-md-4.text-center Name
+      %th.col-md-5.text-center Note
+      %th.col-md-5.text-center Users
+      %th.col-md-5.text-center Companies
+      %th.col-md-1{:colspan => "3"}
   %tbody
-    - @contacts.each do |contact|
-      %tr
-        %td= contact.name
-        %td= contact.note
-        %td= link_to 'Show', contact
-        %td= link_to 'Edit', edit_contact_path(contact)
-        %td= link_to 'Destroy', contact, method: :delete, data: { confirm: 'Are you sure?' }
+    - if @contact_counts > 0
+      - @contacts.each do |contact|
+        %tr
+          %td= contact.name
+          %td= contact.note
+          %td= search_users(contact.id)
+          %td= search_companies(contact.id)
+          %td= link_to 'Show', contact
+          %td= link_to 'Edit', edit_contact_path(contact)
+          %td= link_to 'Destroy', contact, method: :delete, data: { confirm: 'Are you sure?' }
 %br/
-= link_to 'New Contact', new_contact_path
+.btn.btn-info
+  = link_to 'New contact', new_contact_path
+.btn.btn-info
+  = link_to 'Back', welcome_path

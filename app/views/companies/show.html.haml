@@ -1,10 +1,11 @@
-%p#notice= notice
-%p
-  %strong Name:
-  = @company.name
-%p
-  %strong Note:
-  = @company.note
-= link_to 'Edit', edit_company_path(@company)
-|
-\#{link_to 'Back', companies_path}
+.jumbotron
+  %p
+    %strong Name:
+    = @company.name
+  %p
+    %strong Note:
+    = @company.note
+  .btn.btn-info  
+    = link_to 'Edit', edit_company_path(@company)
+  .btn.btn-info  
+    = link_to 'Back', companies_path

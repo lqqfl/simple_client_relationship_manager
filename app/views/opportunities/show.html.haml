@@ -1,10 +1,11 @@
-%p#notice= notice
-%p
-  %strong Name:
-  = @opportunity.name
-%p
-  %strong Note:
-  = @opportunity.note
-= link_to 'Edit', edit_opportunity_path(@opportunity)
-|
-\#{link_to 'Back', opportunities_path}
+.jumbotron
+  %p
+    %strong Name:
+    = @opportunity.name
+  %p
+    %strong Note:
+    = @opportunity.note
+  .btn.btn-info  
+    = link_to 'Edit', edit_opportunity_path(@opportunity)
+  .btn.btn-info  
+    = link_to 'Back', opportunities_path
