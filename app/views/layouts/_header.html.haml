@@ -1,29 +1,23 @@
-%form.navbar-form{role: "Research"}
-  .form-group
-    %input.form-control{placeholder: "Search"}
-    %button.btn.btn-default Submit
-%div.clear-fix.panel.panel-default
-  .panel-body
-    %ul.nav.nav-pills.center
-      %li.col-md-2
-      %li.col-md-4.text-center{ class: active_navbar('users') }
-        =link_to "Users", users_path
-      %li.col-md-4.text-center{ class: active_navbar('activities') }
-        =link_to "Activities", activities_path
-      %li.col-md-2
-      %li.col-md-4.text-center{ class: active_navbar('companies') }
-        =link_to "Companies", companies_path
-      %li.col-md-4.text-center{ class: active(controller.controller_name,'contracts') }
-        =link_to "Contracts", contracts_path
-      %li.col-md-2
-      %li.col-md-4.text-center{ class: active_navbar('contacts') }
-        =link_to "Contacts", contacts_path
-      %li.col-md-4.text-center{ class: active(params[:controller],'opportunities') }
-        =link_to "Opportunities", opportunities_path
-      %li.col-md-2
-- if notice
-  .alert.alert-success
-    = notice
-- if alert
-  .alert.alert-warning
-    = alert
+.wrapper
+  %nav.navbar.navbar-default.navbar-fixed-top{'margin-bottom' => 0}
+    .navbar-header
+      = link_to 'Simple CRM', welcome_path,{class: "navbar-brand"}
+    %ul.nav.navbar-top-links.navbar-right
+      %li.dropdown
+        %a.dropdown-toggle{ :data => {:toggle => "dropdown"}}
+          %i.fa.fa-user.fa-fw
+          %i.fa.fa-caret-down
+        %ul.dropdown-menu.dropdown-user
+          %li
+            %a{:href => ''}
+              %i.fa.fa-user.fa-fw
+              User Profile
+          %li
+            %a{:href => ''}
+              %i.fa.fa-gear.fa-fw
+              Settings
+          %li.divider
+          %li
+            %a{:href => "#{destroy_user_session_path}"}
+              %i.fa.fa-sign-out.fa-fw
+              Sign out
