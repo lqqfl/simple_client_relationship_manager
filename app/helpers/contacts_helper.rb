@@ -1,10 +1,16 @@
 module ContactsHelper
 
   def search_users(id)
-    Contact.find_users(id).map{ |user| user.name if user }.join(',')
+    users = []
+    Contact.find_users(id).each { |user| users << user.name if user }
+    users.join(',')
   end
 
   def search_companies(id)
-    Contact.find_companies(id).map{ |company| company.name if company }.join(',')
+    companies = []
+    Contact.find_companies(id).each do |company|
+      companies << company.name if company
+    end
+    companies.join(',')
   end
 end

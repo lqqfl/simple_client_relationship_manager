@@ -63,6 +63,7 @@ class ContactsController < ApplicationController
   # DELETE /contacts/1
   # DELETE /contacts/1.json
   def destroy
+    empty_relationship(@contact.id)
     @contact.destroy
     respond_to do |format|
       format.html { redirect_to contacts_url, notice: 'Contact was successfully destroyed.' }
@@ -81,12 +82,29 @@ class ContactsController < ApplicationController
       params.require(:contact).permit(:name, :note, :users, :companies)
     end
 
+    def empty_relationship(id)
+      rels = Relationship.where(contact_id: id)
+      rels.map{ |item| item.contact_id = 0; item.save! }
+    end
+
     def relationship_operator(parameters)
-      user_id = parameters[:users] || 0
-      company_id = parameters[:companies] || 0
+      user_id = parameters[:users] == "" ? 0 : parameters[:users]
+      company_id = parameters[:companies] == "" ? 0 : parameters[:companies]
+      return if user_id == 0 && company_id == 0
+
       relationship = search_relationship({user_id: user_id, company_id: company_id, contact_id: 0})
-      if relationship
+      relationship2 = search_relationship({user_id: 0, company_id: company_id, contact_id: @contact.id})
+      relationship3 = search_relationship({user_id: user_id, company_id: 0, contact_id: @contact.id})
+      relationship4 = search_relationship({company_id: 0, contact_id: @contact.id})
+
+      if relationship3
+        relationship3.update_attributes(company_id: company_id)
+      elsif relationship2
+        relationship2.update_attributes(user_id: user_id)
+      elsif relationship
         relationship.update_attributes(contact_id: @contact.id)
+      elsif relationship4
+        relationship4.update_attributes(company_id: company_id)
       else
         Relationship.create!(user_id: user_id, company_id: company_id, contact_id: @contact.id)
       end    

@@ -16,10 +16,10 @@
       %li.col-md-4.text-center{ class: active(controller.controller_name,'contracts') }
         =link_to "Contracts", contracts_path
       %li.col-md-2
-      %li.col-md-4.text-center{ class: active(params[:controller],'opportunities') }
-        =link_to "Opportunities", opportunities_path
       %li.col-md-4.text-center{ class: active_navbar('contacts') }
         =link_to "Contacts", contacts_path
+      %li.col-md-4.text-center{ class: active(params[:controller],'opportunities') }
+        =link_to "Opportunities", opportunities_path
       %li.col-md-2
 - if notice
   .alert.alert-success

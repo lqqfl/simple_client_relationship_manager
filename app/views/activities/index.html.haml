@@ -4,9 +4,12 @@
 %table.table.table-striped.talbe-hover
   %thead
     %tr
-      %th.col-md-3.text-center Name
-      %th.col-md-3.text-center Note
-      %th.col-md-3.text-center Time
+      %th.col-md-2.text-center Name
+      %th.col-md-2.text-center Note
+      %th.col-md-2.text-center Time
+      %th.col-md-1.text-center Company
+      %th.col-md-1.text-center Contact
+      %th.col-md-1.text-center User
       %th.col-md-1{:colspan => "3"}
   %tbody
     - if @activity_counts > 0
@@ -15,6 +18,9 @@
           %td= activity.name
           %td= activity.note
           %td= activity.time
+          %td= activity_companies(activity.id)
+          %td= activity_contacts(activity.id)
+          %td= activity_users(activity.id)
           %td= link_to 'Show', activity
           %td= link_to 'Edit', edit_activity_path(activity)
           %td= link_to 'Destroy', activity, method: :delete, data: { confirm: 'Are you sure?' }

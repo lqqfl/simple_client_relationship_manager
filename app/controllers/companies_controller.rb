@@ -25,10 +25,12 @@ class CompaniesController < ApplicationController
   # POST /companies
   # POST /companies.json
   def create
-    @company = Company.new(company_params)
+    parameters = company_params
+    @company = Company.new(name: parameters[:name], note: parameters[:note])
 
     respond_to do |format|
       if @company.save
+        relationship_operator(parameters)
         format.html { redirect_to @company, notice: 'Company was successfully created.' }
         format.json { render :show, status: :created, location: @company }
       else
@@ -41,9 +43,14 @@ class CompaniesController < ApplicationController
   # PATCH/PUT /companies/1
   # PATCH/PUT /companies/1.json
   def update
+    parameters = company_params
     respond_to do |format|
-      if @company.update(company_params)
-        format.html { redirect_to @company, notice: 'Company was successfully updated.' }
+      if @company.update(name: parameters[:name], note: parameters[:note])
+        if relationship_operator(parameters)
+          format.html { redirect_to @company, notice: 'Company was successfully updated.' }
+        else
+          format.html { redirect_to @company, notice: 'The company has associated the user you selected.' }
+        end
         format.json { render :show, status: :ok, location: @company }
       else
         format.html { render :edit }
@@ -55,6 +62,7 @@ class CompaniesController < ApplicationController
   # DELETE /companies/1
   # DELETE /companies/1.json
   def destroy
+    empty_relationship(@company.id)
     @company.destroy
     respond_to do |format|
       format.html { redirect_to companies_url, notice: 'Company was successfully destroyed.' }
@@ -70,6 +78,26 @@ class CompaniesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def company_params
-      params.require(:company).permit(:name, :note)
+      params.require(:company).permit(:name, :note, :users)
     end
+
+    def empty_relationship(id)
+      rels = Relationship.where(company_id: id)
+      rels.map{ |item| item.company_id = 0; item.save! }
+    end
+
+    def relationship_operator(parameters)
+      user_id = parameters[:users] == "" ? 0 : parameters[:users]
+      relationship = search_relationship({user_id: user_id, company_id: 0, contact_id: 0})
+      relationship2 = search_relationship({user_id: user_id, company_id: @company_id})
+      if relationship2
+        false
+      elsif relationship
+        relationship.update_attributes(company_id: @company.id)
+        true
+      else
+        Relationship.create!(user_id: user_id, company_id: @company.id, contact_id: 0)
+        true
+      end
+    end    
 end

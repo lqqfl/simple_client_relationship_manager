@@ -1,0 +1,27 @@
+%h1 Listing relationships
+%span.badge 
+  = @relationship_counts
+%table.table.table-striped.talbe-hover
+  %thead
+    %tr
+      %th.col-md-2.text-center User
+      %th.col-md-1.text-center Company
+      %th.col-md-2.text-center Contact
+      %th.col-md-2.text-center Activity
+      %th.col-md-2.text-center Opportunity
+      %th.col-md-2.text-center Contract
+      %th.col-md-1{:colspan => "1"}
+  %tbody
+    - if @relationship_counts > 0
+      - @relationships.each do |relationship|
+        %tr
+          %td= relationship.user_id
+          %td= relationship.company_id
+          %td= relationship.contact_id
+          %td= relationship.activity_id
+          %td= relationship.opportunity_id
+          %td= relationship.contract_id
+          %td= link_to 'Destroy', relationship, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+.btn.btn-info
+  = link_to 'Back', welcome_path

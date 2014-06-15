@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140611134331) do
+ActiveRecord::Schema.define(version: 20140615105356) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -37,11 +37,13 @@ ActiveRecord::Schema.define(version: 20140611134331) do
 
   create_table "contracts", force: true do |t|
     t.string   "name"
-    t.decimal  "amount",     precision: 10, scale: 2, default: 0.0
+    t.decimal  "exp_amount",  precision: 10, scale: 2, default: 0.0
     t.text     "note"
-    t.datetime "time"
+    t.date     "start_time"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "end_time"
+    t.decimal  "real_amount", precision: 10, scale: 2, default: 0.0
   end
 
   create_table "opportunities", force: true do |t|
@@ -57,7 +59,7 @@ ActiveRecord::Schema.define(version: 20140611134331) do
     t.integer  "user_id",        default: 0
     t.integer  "opportunity_id", default: 0
     t.integer  "activity_id",    default: 0
-    t.integer  "cotract_id",     default: 0
+    t.integer  "contract_id",    default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -65,7 +67,7 @@ ActiveRecord::Schema.define(version: 20140611134331) do
   add_index "relationships", ["activity_id"], name: "index_relationships_on_activity_id"
   add_index "relationships", ["company_id"], name: "index_relationships_on_company_id"
   add_index "relationships", ["contact_id"], name: "index_relationships_on_contact_id"
-  add_index "relationships", ["cotract_id"], name: "index_relationships_on_cotract_id"
+  add_index "relationships", ["contract_id"], name: "index_relationships_on_contract_id"
   add_index "relationships", ["opportunity_id"], name: "index_relationships_on_opportunity_id"
   add_index "relationships", ["user_id"], name: "index_relationships_on_user_id"
 

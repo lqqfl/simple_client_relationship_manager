@@ -4,17 +4,23 @@
 %table.table.table-striped.talbe-hover
   %thead
     %tr
-      %th.col-md-3.text-center Name
-      %th.col-md-3.text-center Note
-      %th.col-md-3.text-center Time
+      %th.col-md-2.text-center Name
+      %th.col-md-2.text-center Amount
+      %th.col-md-2.text-center Start
+      %th.col-md-1.text-center End
+      %th.col-md-1.text-center Company
+      %th.col-md-1.text-center Contact
       %th.col-md-1{:colspan => "3"}
   %tbody
     - if @contract_counts > 0
       - @contracts.each do |contract|
         %tr
           %td= contract.name
-          %td= contract.note
-          %td= contract.time.to_s(:db)
+          %td= number_to_currency(contract.exp_amount, unit: "￥")
+          %td= contract.start_time.to_s(:db)
+          %td= contract.end_time
+          %td= contract_companies(contract.id)
+          %td= contract_contacts(contract.id)
           %td= link_to 'Show', contract
           %td= link_to 'Edit', edit_contract_path(contract)
           %td= link_to 'Destroy', contract, method: :delete, data: { confirm: 'Are you sure?' }

@@ -5,6 +5,13 @@
   %p
     %strong Note:
     = @company.note
+  %p
+    %strong Users:
+    - users = company_users(@company.id)
+    - if users.present?
+      = users
+    - else
+      Nothing
   .btn.btn-info  
     = link_to 'Edit', edit_company_path(@company)
   .btn.btn-info  

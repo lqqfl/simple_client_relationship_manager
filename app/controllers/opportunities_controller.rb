@@ -29,6 +29,8 @@ class OpportunitiesController < ApplicationController
 
     respond_to do |format|
       if @opportunity.save
+
+        relationship_operator(relation_params)
         format.html { redirect_to @opportunity, notice: 'Opportunity was successfully created.' }
         format.json { render :show, status: :created, location: @opportunity }
       else
@@ -43,6 +45,7 @@ class OpportunitiesController < ApplicationController
   def update
     respond_to do |format|
       if @opportunity.update(opportunity_params)
+        relationship_operator(relation_params)
         format.html { redirect_to @opportunity, notice: 'Opportunity was successfully updated.' }
         format.json { render :show, status: :ok, location: @opportunity }
       else
@@ -55,6 +58,7 @@ class OpportunitiesController < ApplicationController
   # DELETE /opportunities/1
   # DELETE /opportunities/1.json
   def destroy
+    empty_relationship(@opportunity.id)
     @opportunity.destroy
     respond_to do |format|
       format.html { redirect_to opportunities_url, notice: 'Opportunity was successfully destroyed.' }
@@ -71,5 +75,32 @@ class OpportunitiesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def opportunity_params
       params.require(:opportunity).permit(:name, :note)
+    end
+
+    def relation_params
+      params.require(:opportunity).permit(:users, :companies, :contacts, :activities)
+    end
+
+    def empty_relationship(id)
+      rels = Relationship.where(opportunity_id: id)
+      rels.map{ |item| item.activity_id = 0; item.save! }
+    end
+
+    def relationship_operator(parameters)
+      user_id = parameters[:users] == "" ? 0 : parameters[:users]
+      company_id = parameters[:companies] == "" ? 0 : parameters[:companies]
+      contact_id = parameters[:contacts] == "" ? 0 : parameters[:contacts]
+      activity_id = parameters[:activities] == "" ? 0 : parameters[:activities]
+      return if user_id == 0 && company_id == 0 && contact_id == 0
+
+      relationship = search_relationship({user_id: user_id, company_id: company_id, contact_id: contact_id, activity_id: activity_id, opportunity_id: 0})
+      relationship2 = search_relationship({user_id: user_id, company_id: company_id, contact_id: contact_id, activity_id: 0, opportunity_id: 0})
+      if relationship
+        relationship.update_attributes(opportunity_id: @opportunity.id)
+      elsif relationship2
+        relationship2.update_attributes(opportunity_id: @opportunity.id, activity_id: activity_id)
+      else
+        Relationship.create!(user_id: user_id, company_id: company_id, contact_id: contact_id, activity_id: activity_id, opportunity_id: @opportunity.id)
+      end
     end
 end

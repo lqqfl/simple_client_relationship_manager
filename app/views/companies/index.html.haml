@@ -4,8 +4,9 @@
 %table.table.table-striped.talbe-hover
   %thead
     %tr
-      %th.col-md-4.text-center Name
-      %th.col-md-5.text-center Note
+      %th.col-md-3.text-center Name
+      %th.col-md-3.text-center Note
+      %th.col-md-3.text-center Users
       %th.col-md-1{:colspan => "3"}
   %tbody
     - if @company_counts > 0
@@ -13,6 +14,7 @@
         %tr
           %td= company.name
           %td= company.note
+          %td= company_users(company.id)
           %td= link_to 'Show', company
           %td= link_to 'Edit', edit_company_path(company)
           %td= link_to 'Destroy', company, method: :delete, data: { confirm: 'Are you sure?' }

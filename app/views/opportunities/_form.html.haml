@@ -19,4 +19,24 @@
       .col-md-7
         = f.text_area :note,{class: "form-control", rows: 3}
     .form-group
+      .col-md-offset-3.col-md-1
+        = f.label :companies,{class: "form-label"}
+      .col-md-1
+        = f.select :companies, company_array,{prompt: "Please select",include_blank: true}
+    .form-group
+      .col-md-offset-3.col-md-1
+        = f.label :contacts,{class: "form-label"}
+      .col-md-1
+        = f.select :contacts, contact_array,{prompt: "Please select",include_blank: true}
+    .form-group
+      .col-md-offset-3.col-md-1
+        = f.label :users,{class: "form-label"}
+      .col-md-1
+        = f.select :users, user_array,{prompt: "Please select",include_blank: true} 
+    .form-group
+      .col-md-offset-3.col-md-1
+        = f.label :activities,{class: "form-label"}
+      .col-md-1
+        = f.select :activities, activity_array,{prompt: "Please select",include_blank: true} 
+    .form-group
       = f.submit "Save",class: "btn btn-primary col-md-offset-4 col-md-1"

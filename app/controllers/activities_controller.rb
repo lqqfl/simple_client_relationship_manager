@@ -29,6 +29,8 @@ class ActivitiesController < ApplicationController
 
     respond_to do |format|
       if @activity.save
+        relationship_operator(relation_params)
+
         format.html { redirect_to @activity, notice: 'Activity was successfully created.' }
         format.json { render :show, status: :created, location: @activity }
       else
@@ -43,6 +45,8 @@ class ActivitiesController < ApplicationController
   def update
     respond_to do |format|
       if @activity.update(activity_params)
+        relationship_operator(relation_params)
+        
         format.html { redirect_to @activity, notice: 'Activity was successfully updated.' }
         format.json { render :show, status: :ok, location: @activity }
       else
@@ -55,7 +59,9 @@ class ActivitiesController < ApplicationController
   # DELETE /activities/1
   # DELETE /activities/1.json
   def destroy
+    empty_relationship(@activity.id)
     @activity.destroy
+
     respond_to do |format|
       format.html { redirect_to activities_url, notice: 'Activity was successfully destroyed.' }
       format.json { head :no_content }
@@ -72,4 +78,28 @@ class ActivitiesController < ApplicationController
     def activity_params
       params.require(:activity).permit(:name, :time, :note)
     end
+
+    def relation_params
+      params.require(:activity).permit(:users, :companies, :contacts)
+    end
+
+    def empty_relationship(id)
+      rels = Relationship.where(activity_id: id)
+      rels.map{ |item| item.activity_id = 0; item.save! }
+    end
+
+    def relationship_operator(parameters)
+      user_id = parameters[:users] == "" ? 0 : parameters[:users]
+      company_id = parameters[:companies] == "" ? 0 : parameters[:companies]
+      contact_id = parameters[:contacts] == "" ? 0 : parameters[:contacts]
+      return if user_id == 0 && company_id == 0 && contact_id == 0
+
+      relationship = search_relationship({user_id: user_id, company_id: company_id, contact_id: contact_id, activity_id: 0})
+
+      if relationship
+        relationship.update_attributes(activity_id: @activity.id)
+      else
+        Relationship.create!(user_id: user_id, company_id: company_id, contact_id: contact_id, activity_id: @activity.id)
+      end
+    end      
 end

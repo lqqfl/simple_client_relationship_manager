@@ -6,8 +6,17 @@
     %strong Note:
     = @contract.note
   %p
-    %strong Time:
-    = @contract.time
+    %strong Start:
+    = @contract.start_time
+  %p
+    %strong End:
+    = @contract.end_time
+  %p
+    %strong Exp:
+    = number_to_currency(@contract.exp_amount, unit: "￥")
+  %p
+    %strong Real:
+    = number_to_currency(@contract.real_amount, unit: "￥")
   .btn.btn-info  
     = link_to 'Edit', edit_contract_path(@contract)
   .btn.btn-info  
