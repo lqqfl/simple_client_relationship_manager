@@ -1,70 +1,78 @@
-.wrapper
-  %nav.navbar.navbar-default.navbar-fixed-top{'margin-bottom' => '0'}
-    .navbar-header
-      = link_to 'Simple CRM', welcome_path,{class: "navbar-brand"}
-    %ul.nav.navbar-top-links.navbar-right
-      %li.dropdown
-        %a.dropdown-toggle{ :data => {:toggle => "dropdown"}}
-          %i.fa.fa-user.fa-fw
-          %i.fa.fa-caret-down
-        %ul.dropdown-menu.dropdown-user
-          %li
-            %a{:href => ''}
-              %i.fa.fa-user.fa-fw
-              User Profile
-          %li
-            %a{:href => ''}
-              %i.fa.fa-gear.fa-fw
-              Settings
-          %li.divider
-          %li
-            %a{:href => "#{destroy_user_session_path}"}
-              %i.fa.fa-sign-out.fa-fw
-              Sign out
-    .navbar-default.navbar-static-side{:role => "navigation"}
-      .sidebar-collapse
-        %ul.nav#side-menu
-          %li.sidebar-search
-            .input-group.custom-search-form
-              %input.form-control{:type=>'text',:placeholder=>'Search...'}
-              %span.input-group-btn
-                %button.btn.btn-default{:type=>'button'}
-                  %i.fa.fa-search
-          %li
-            %a{:href=>''}
-              %i.fa.fa-dashboard.fa-fw
-              Dashboard
-          %li
-            %a{:href=>''}
-              %i.fa.fa-bar-chart-o.fa-fw
-              CRM
-              %span.fa.arrow
-            %ul.nav.nav-second-level.collapse
-              %li
-                %a{:href => ''}
-                  Customers
-              %li
-                %a{:href => ''}
-                  Contacts
-              %li
-                %a{:href => ''}
-                  Activities
-              %li
-                %a{:href => ''}
-                  Opportunities
-          %li
-            %a{:href=>''}
-              %i.fa.fa-dashboard.fa-fw
-              Customer
-          %li
-            %a{:href=>''}
-              %i.fa.fa-dashboard.fa-fw
-              Contact
-          %li
-            %a{:href=>''}
-              %i.fa.fa-dashboard.fa-fw
-              Activity
-          %li
-            %a{:href=>''}
-              %i.fa.fa-dashboard.fa-fw
-              Opportunity
+%nav.navbar.navbar-default.navbar-fixed-top{:style => 'margin-bottom: 0', :role => 'navigation'}
+  .navbar-header
+    %button.navbar-toggle{:data=>{:toggle=>'collapse',:target=>'.sidebar-collapse'}}
+      %span.sr-only Toggle navigation
+      %span.icron-bar
+      %span.icron-bar
+      %span.icron-bar
+    = link_to 'Simple CRM', welcome_path,{class: "navbar-brand"}
+  %ul.nav.navbar-top-links.navbar-right
+    %li.dropdown
+      %a.dropdown-toggle{ :data => {:toggle => "dropdown"}}
+        %i.fa.fa-user.fa-fw
+        %i.fa.fa-caret-down
+      %ul.dropdown-menu.dropdown-user
+        %li
+          %a{:href => ''}
+            %i.fa.fa-user.fa-fw
+            User Profile
+        %li
+          %a{:href => ''}
+            %i.fa.fa-gear.fa-fw
+            Settings
+        %li.divider
+        %li
+          %a{:href => "#{destroy_user_session_path}"}
+            %i.fa.fa-sign-out.fa-fw
+            Sign out
+  .navbar-default.navbar-static-side{:role => "navigation"}
+    .sidebar-collapse
+      %ul.nav#side-menu
+        %li.sidebar-search
+          .input-group.custom-search-form
+            %input.form-control{:type=>'text',:placeholder=>'Search...'}
+            %span.input-group-btn
+              %button.btn.btn-default{:type=>'button'}
+                %i.fa.fa-search
+        %li
+          %a{:href=>"#{welcome_path}"}
+            %i.fa.fa-dashboard.fa-fw
+            Dashboard
+        %li
+          %a
+            %i.fa.fa-sitemap.fa-fw
+            CRM
+            %span.fa.arrow
+          %ul.nav.nav-second-level.collapse
+            %li
+              %a{:href => "#{companies_path}"}
+                Customers
+            %li
+              %a{:href => "#{contacts_path}"}
+                Contacts
+            %li
+              %a{:href => "#{activities_path}"}
+                Activities
+            %li
+              %a{:href => "#{opportunities_path}"}
+                Opportunities
+        %li
+          %a{:href=>"#{companies_path}"}
+            %i.fa.fa-table.fa-fw
+            Customer
+        %li
+          %a{:href=>"#{contacts_path}"}
+            %i.fa.fa-edit.fa-fw
+            Contact
+        %li
+          %a{:href=>"#{activities_path}"}
+            %i.fa.fa-bar-chart-o.fa-fw
+            Activity
+        %li
+          %a{:href=>"#{opportunities_path}"}
+            %i.fa.fa-files-o.fa-fw
+            Opportunity
+        %li
+          %a{:href=>"#{users_path}"}
+            %i.fa.fa-wrench.fa-fw
+            Users
