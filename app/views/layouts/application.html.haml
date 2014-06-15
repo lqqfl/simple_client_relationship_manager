@@ -8,9 +8,14 @@
     / = javascript_tag "alert('#{params.inspect}')"
   %body
     %header
-      = render 'layouts/header'
+      - if user_signed_in?
+        = render 'layouts/header'
     .container
-      .text-center
+      - if user_signed_in?
+        .text-center
+          = yield
+      - else
         = yield
     %footer
-      = render 'layouts/footer'
+      - if user_signed_in?
+        = render 'layouts/footer'

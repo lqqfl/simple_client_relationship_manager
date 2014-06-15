@@ -44,3 +44,5 @@ gem 'haml-rails'
 gem 'html2haml'
 # ui
 gem 'bootstrap-sass'
+# login
+gem 'devise'

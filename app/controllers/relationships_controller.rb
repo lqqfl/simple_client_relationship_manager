@@ -1,4 +1,5 @@
 class RelationshipsController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_relationship, only: [:destroy]
   def index
     @relationships = Relationship.all

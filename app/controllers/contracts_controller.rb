@@ -1,6 +1,6 @@
 class ContractsController < ApplicationController
   before_action :set_contract, only: [:show, :edit, :update, :destroy]
-
+  before_filter :authenticate_user!
   # GET /contracts
   # GET /contracts.json
   def index
