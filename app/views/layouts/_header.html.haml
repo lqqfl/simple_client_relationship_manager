@@ -1,5 +1,5 @@
 .wrapper
-  %nav.navbar.navbar-default.navbar-fixed-top{'margin-bottom' => 0}
+  %nav.navbar.navbar-default.navbar-fixed-top{'margin-bottom' => '0'}
     .navbar-header
       = link_to 'Simple CRM', welcome_path,{class: "navbar-brand"}
     %ul.nav.navbar-top-links.navbar-right
@@ -21,3 +21,50 @@
             %a{:href => "#{destroy_user_session_path}"}
               %i.fa.fa-sign-out.fa-fw
               Sign out
+    .navbar-default.navbar-static-side{:role => "navigation"}
+      .sidebar-collapse
+        %ul.nav#side-menu
+          %li.sidebar-search
+            .input-group.custom-search-form
+              %input.form-control{:type=>'text',:placeholder=>'Search...'}
+              %span.input-group-btn
+                %button.btn.btn-default{:type=>'button'}
+                  %i.fa.fa-search
+          %li
+            %a{:href=>''}
+              %i.fa.fa-dashboard.fa-fw
+              Dashboard
+          %li
+            %a{:href=>''}
+              %i.fa.fa-bar-chart-o.fa-fw
+              CRM
+              %span.fa.arrow
+            %ul.nav.nav-second-level.collapse
+              %li
+                %a{:href => ''}
+                  Customers
+              %li
+                %a{:href => ''}
+                  Contacts
+              %li
+                %a{:href => ''}
+                  Activities
+              %li
+                %a{:href => ''}
+                  Opportunities
+          %li
+            %a{:href=>''}
+              %i.fa.fa-dashboard.fa-fw
+              Customer
+          %li
+            %a{:href=>''}
+              %i.fa.fa-dashboard.fa-fw
+              Contact
+          %li
+            %a{:href=>''}
+              %i.fa.fa-dashboard.fa-fw
+              Activity
+          %li
+            %a{:href=>''}
+              %i.fa.fa-dashboard.fa-fw
+              Opportunity

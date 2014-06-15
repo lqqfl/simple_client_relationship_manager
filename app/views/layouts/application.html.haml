@@ -7,15 +7,16 @@
     = csrf_meta_tags
     / = javascript_tag "alert('#{params.inspect}')"
   %body
-    %header
-      - if user_signed_in?
-        = render 'layouts/header'
-    .container
-      - if user_signed_in?
-        .text-center
-          = yield
-      - else
-        = yield
-    %footer
-      - if user_signed_in?
-        = render 'layouts/footer'
+    -# %header
+    -#   - if user_signed_in?
+    -#     = render 'layouts/header'
+    -# .container
+    -#   - if user_signed_in?
+    -#     .text-center
+    -#       = yield
+    -#   - else
+    -#     = yield
+    -# %footer
+    -#   - if user_signed_in?
+    -#     = render 'layouts/footer'
+    = render 'layouts/header'
