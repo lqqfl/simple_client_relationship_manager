@@ -19,11 +19,14 @@
     -# %footer
     -#   - if user_signed_in?
     -#     = render 'layouts/footer'
-    #wrapper
-      = render 'layouts/header'
-      #page-wrapper
-        .row
-          .col-lg-12
-            = yield
-            = render 'layouts/footer'
+    - if user_signed_in?
+      #wrapper
+        = render 'layouts/header'
+        #page-wrapper
+          .row
+            .col-lg-12
+              = yield
+              = render 'layouts/footer'
+    - else
+      = yield
 

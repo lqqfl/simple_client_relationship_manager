@@ -9,15 +9,16 @@
   %ul.nav.navbar-top-links.navbar-right
     %li.dropdown
       %a.dropdown-toggle{ :data => {:toggle => "dropdown"}}
+        %i="#{current_user.email}"
         %i.fa.fa-user.fa-fw
         %i.fa.fa-caret-down
       %ul.dropdown-menu.dropdown-user
         %li
-          %a{:href => ''}
+          %a{:href => "#{user_path(current_user)}"}
             %i.fa.fa-user.fa-fw
             User Profile
         %li
-          %a{:href => ''}
+          %a{:href => "#{edit_user_path(current_user)}"}
             %i.fa.fa-gear.fa-fw
             Settings
         %li.divider

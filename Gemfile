@@ -46,3 +46,5 @@ gem 'html2haml'
 gem 'bootstrap-sass'
 # login
 gem 'devise'
+# page
+gem 'will_paginate-bootstrap'

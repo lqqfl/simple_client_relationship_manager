@@ -1,11 +1,12 @@
-%h1 Listing users
+%h1.page-header Listing users
 %span.badge 
   = @user_counts
 %table.table.table-striped.talbe-hover
   %thead
     %tr
-      %th.col-md-4.text-center Name
-      %th.col-md-5.text-center Note
+      %th.col-md-3.text-center Name
+      %th.col-md-3.text-center Note
+      %th.col-md-3.text-center E-mail
       %th.col-md-1{:colspan => "3"}
   %tbody
     - if @user_counts > 0  
@@ -13,9 +14,11 @@
         %tr
           %td= user.name
           %td= user.note
+          %td= user.email
           %td= link_to 'Show', user
           %td= link_to 'Edit', edit_user_path(user)
           %td= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }
+= will_paginate @users, renderer: BootstrapPagination::Rails
 %br/
 .btn.btn-info
   = link_to 'New User', new_user_path
