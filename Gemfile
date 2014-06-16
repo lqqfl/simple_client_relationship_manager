@@ -36,7 +36,7 @@ gem 'spring',        group: :development
 # gem 'capistrano-rails', group: :development
 
 # Use debugger
-# gem 'debugger', group: [:development, :test]
+gem 'debugger2', group: [:development, :test]
 
 # haml
 gem 'haml'
@@ -50,3 +50,5 @@ gem 'devise'
 gem 'will_paginate-bootstrap'
 # timeline
 gem 'timelineJS-rails', '~> 1.1.5'
+# chart
+gem 'lazy_high_charts'

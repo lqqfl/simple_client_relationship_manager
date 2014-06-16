@@ -7,4 +7,5 @@ class WelcomeController < ApplicationController
       flash[:alert] =  "You should add a user firstly."
     end
   end
+
 end

@@ -23,7 +23,7 @@
             Settings
         %li.divider
         %li
-          %a{:href => "#{destroy_user_session_path}"}
+          %a{:href => "#{destroy_user_session_path}",:data => {:method => :delete}}
             %i.fa.fa-sign-out.fa-fw
             Sign out
   .navbar-default.navbar-static-side{:role => "navigation"}
@@ -39,6 +39,20 @@
           %a{:href=>"#{welcome_path}"}
             %i.fa.fa-dashboard.fa-fw
             Dashboard
+            %span.fa.arrow
+          %ul.nav.nav-second-level.collapse
+            %li
+              %a{:href => "#{welcome_path}"}
+                Index
+            %li
+              %a{:href => ''}
+                Sales Report
+            %li
+              %a{:href => ''}
+                Financial Report
+            %li
+              %a{:href => ''}
+                Organization   
         %li
           %a
             %i.fa.fa-sitemap.fa-fw

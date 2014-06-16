@@ -26,6 +26,12 @@
           .row
             .col-lg-12
               = yield
+              - charts
+              = high_chart('my_id0', @chart)
+              = high_chart('my_id1', @chart2)
+              = high_chart('my_id2', @chart3)
+              = high_chart('my_id3', @chart4)
+              = high_chart('my_id4', @chart5)
               = render 'layouts/footer'
     - else
       = yield

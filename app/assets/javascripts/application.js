@@ -18,3 +18,7 @@
 //= require jquery.metisMenu
 //= require_tree .
 //= require timelineJS/embed
+//= require highcharts/highcharts
+//= require highcharts/highcharts-more
+//= require highcharts/highstock 
+
