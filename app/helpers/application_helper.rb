@@ -31,4 +31,44 @@ module ApplicationHelper
   def active(controller,target)
     controller == target  ? "active" : ""
   end
+
+  def timeline
+    @sources = Opportunity.where("created_at > ?", Time.now-14.days).order("created_at desc")
+  end
+
+  def timeline2
+    @sources1 = Activity.where("created_at > ?", Time.now-14.days).order("created_at desc")
+  end
+
+  def timeline3
+    @sources2 = Contract.where("created_at > ?", Time.now-14.days).order("created_at desc")
+  end
+
+  def timeline_datas
+    timeline
+    temp = @sources.collect{|p|
+      "{
+      'startDate': '#{p.created_at.strftime("%Y,%m,%d")}',
+      'headline': '#{p.name}',
+      'text': '#{sanitize p.note.gsub(/\r?\n/, "<br/>")}',
+      }"
+    }.join(",").html_safe
+    timeline2
+    temp2 = @sources1.collect{|p|
+      "{
+      'startDate': '#{p.created_at.strftime("%Y,%m,%d")}',
+      'headline': '#{p.name}',
+      'text': '#{sanitize p.note.gsub(/\r?\n/, "<br/>")}',
+      }"
+    }.join(",").html_safe
+    # timeline3
+    # temp << @sources2.collect{|p|
+    #   "{
+    #   'startDate': '#{p.created_at.strftime("%Y,%m,%d")}',
+    #   'headline': '#{p.name}',
+    #   'text': '#{sanitize p.note.gsub(/\r?\n/, "<br/>")}',
+    #   }"
+    # }.join(",").html_safe
+    temp
+  end
 end

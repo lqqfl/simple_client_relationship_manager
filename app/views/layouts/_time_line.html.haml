@@ -1,0 +1,20 @@
+#timeline
+  -if timeline_datas.empty?
+  -else
+    :javascript
+      $(document).ready(function() {
+        createStoryJS({
+          type: 'timeline',
+          width: '100%',
+          height: '500',
+          source: {
+            "timeline":{
+                "headline":"欢迎登陆旺田云",
+                "type":"default",
+                "text":"这是一条时间线，用于记录公司的点点滴滴",
+                "date": [#{timeline_datas}]
+            }
+        },
+          embed_id: 'timeline'
+        });
+      });

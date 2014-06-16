@@ -6,4 +6,5 @@ class ApplicationController < ActionController::Base
   def search_relationship(str)
     Relationship.search(str)
   end
+
 end

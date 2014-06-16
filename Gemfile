@@ -48,3 +48,5 @@ gem 'bootstrap-sass'
 gem 'devise'
 # page
 gem 'will_paginate-bootstrap'
+# timeline
+gem 'timelineJS-rails', '~> 1.1.5'
