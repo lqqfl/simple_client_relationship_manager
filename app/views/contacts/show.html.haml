@@ -18,8 +18,6 @@
     - if companies.present?
       = search_companies(@contact.id) 
     -else
-      Nothing
-  .btn.btn-info  
-    = link_to 'Edit', edit_contact_path(@contact)
-  .btn.btn-info  
-    = link_to 'Back', contacts_path
+      Nothing  
+  = link_to 'Edit', edit_contact_path(@contact),{class: "btn btn-success", remote: true}
+  = link_to 'Back', contacts_path,{class: "btn btn-success", remote: true}

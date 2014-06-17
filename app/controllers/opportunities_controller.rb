@@ -1,12 +1,11 @@
 class OpportunitiesController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_opportunity, only: [:show, :edit, :update, :destroy]
+  before_action :get_counts, except: [:new]
 
   # GET /opportunities
   # GET /opportunities.json
   def index
-    @opportunities = Opportunity.all
-    @opportunity_counts = Opportunity.count
   end
 
   # GET /opportunities/1
@@ -32,6 +31,7 @@ class OpportunitiesController < ApplicationController
       if @opportunity.save
 
         relationship_operator(relation_params)
+        format.js
         format.html { redirect_to @opportunity, notice: 'Opportunity was successfully created.' }
         format.json { render :show, status: :created, location: @opportunity }
       else
@@ -47,6 +47,7 @@ class OpportunitiesController < ApplicationController
     respond_to do |format|
       if @opportunity.update(opportunity_params)
         relationship_operator(relation_params)
+        format.js
         format.html { redirect_to @opportunity, notice: 'Opportunity was successfully updated.' }
         format.json { render :show, status: :ok, location: @opportunity }
       else
@@ -62,6 +63,7 @@ class OpportunitiesController < ApplicationController
     empty_relationship(@opportunity.id)
     @opportunity.destroy
     respond_to do |format|
+      format.js
       format.html { redirect_to opportunities_url, notice: 'Opportunity was successfully destroyed.' }
       format.json { head :no_content }
     end
@@ -103,5 +105,10 @@ class OpportunitiesController < ApplicationController
       else
         Relationship.create!(user_id: user_id, company_id: company_id, contact_id: contact_id, activity_id: activity_id, opportunity_id: @opportunity.id)
       end
+    end
+
+    def get_counts
+      @opportunities = Opportunity.all.paginate(page: params[:page], per_page: 5)
+      @opportunity_counts = Opportunity.count      
     end
 end

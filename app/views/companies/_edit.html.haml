@@ -1,0 +1,6 @@
+.row
+  .col-lg-12
+    %h1.page-header Editing company
+    = render 'form'
+    = link_to 'Show', @company, remote: true, class: "btn btn-success"
+    = link_to 'Back', companies_path, remote: true, class: "btn btn-success"

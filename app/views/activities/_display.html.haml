@@ -1,0 +1,32 @@
+.row
+  .col-lg-12
+    .jumbotron
+      %p
+        %strong Name:
+        = @activity.name
+      %p
+        %strong Note:
+        = @activity.note
+      %p
+        %strong Companies:
+        - temp = activity_companies(@activity.id)
+        - if temp.present?
+          = temp
+        -else
+          Nothing
+      %p
+        %strong Contacts:
+        - temp = activity_contacts(@activity.id)
+        - if temp.present?
+          = temp
+        -else
+          Nothing
+      %p
+        %strong Users:
+        - temp = activity_users(@activity.id)
+        - if temp.present?
+          = temp
+        - else
+          Nothing  
+      = link_to 'Edit', edit_activity_path(@activity),remote: true, class: "btn btn-success"
+      = link_to 'Back', activities_path,remote: true, class: "btn btn-success"

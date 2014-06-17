@@ -1,0 +1,34 @@
+.row
+  .col-lg-12
+    %h1.page-header 
+      Listing contacts
+      %span.badge 
+        = @contact_counts
+    .form-group
+      .col-md-3
+        %input.form-control{placeholder: "Name"}
+      .col-md-3
+        %input.form-control{placeholder: "Note"}
+
+    %table.table.table-striped.talbe-hover.text-center
+      %thead
+        %tr
+          %th.col-md-2.text-center Name
+          %th.col-md-2.text-center Note
+          %th.col-md-3.text-center Users
+          %th.col-md-2.text-center Companies
+          %th.col-md-1{:colspan => "3"}
+      %tbody
+        - if @contact_counts > 0
+          - @contacts.each do |contact|
+            %tr
+              %td= contact.name
+              %td= contact.note
+              %td= search_users(contact.id)
+              %td= search_companies(contact.id)
+              %td= link_to 'Show', contact,{class: "btn btn-success",remote: true}
+              %td= link_to 'Edit', edit_contact_path(contact),{class: "btn btn-info",remote: true}
+              %td= link_to 'Destroy', contact, remote: true, method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger"
+    = will_paginate @contacts, renderer: BootstrapPagination::Rails
+    %br/
+    = link_to 'New contact', new_contact_path, remote: true,class: "btn btn-success"

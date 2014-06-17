@@ -1,5 +1,5 @@
 .form-horizontal
-  = form_for(@activity) do |f|
+  = form_for(@activity,remote: true) do |f|
     - if @activity.errors.any?
       #error_explanation.alert.alert-warning
         %h2

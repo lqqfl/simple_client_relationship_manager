@@ -1,0 +1,39 @@
+.row
+  .col-lg-12
+    .jumbotron
+      %p
+        %strong Name:
+        = @opportunity.name
+      %p
+        %strong Note:
+        = @opportunity.note
+      %p
+        %strong Companies:
+        - temp = opp_companies(@opportunity.id)
+        - if temp.present?
+          = temp
+        -else
+          Nothing
+      %p
+        %strong Contacts:
+        - temp = opp_contacts(@opportunity.id)
+        - if temp.present?
+          = temp
+        -else
+          Nothing
+      %p
+        %strong Users:
+        - temp = opp_users(@opportunity.id)
+        - if temp.present?
+          = temp
+        - else
+          Nothing
+      %p
+        %strong Activities:
+        - temp = opp_activities(@opportunity.id)
+        - if temp.present?
+          = temp
+        - else
+          Nothing 
+      = link_to 'Edit', edit_opportunity_path(@opportunity), remote: true,class: "btn btn-success"
+      = link_to 'Back', opportunities_path, remote: true,class: "btn btn-success"

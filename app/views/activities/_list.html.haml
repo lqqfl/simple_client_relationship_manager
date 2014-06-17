@@ -1,0 +1,32 @@
+.row
+  .col-lg-12
+    %h1.page-header
+      Listing activities
+      %span.badge 
+        = @activity_counts
+    %table.table.table-striped.talbe-hover.text-center
+      %thead
+        %tr
+          %th.col-md-1.text-center Name
+          %th.col-md-1.text-center Note
+          %th.col-md-2.text-ceenter Time
+          %th.col-md-1.text-center Company
+          %th.col-md-2.text-center Contact
+          %th.col-md-2.text-center User
+          %th.col-md-1{:colspan => "3"}
+      %tbody
+        - if @activity_counts > 0
+          - @activities.each do |activity|
+            %tr
+              %td= activity.name
+              %td= activity.note
+              %td= activity.time.strftime('%Y-%m-%d')
+              %td= activity_companies(activity.id)
+              %td= activity_contacts(activity.id)
+              %td= activity_users(activity.id)
+              %td= link_to 'Show', activity,remote: true, class: "btn btn-success"
+              %td= link_to 'Edit', edit_activity_path(activity),remote: true, class: "btn btn-info"
+              %td= link_to 'Delete', activity, method: :delete, data: { confirm: 'Are you sure?' },remote: true, class: "btn btn-warning"
+    = will_paginate @activities, renderer: BootstrapPagination::Rails
+    %br/
+    = link_to 'New Activity', new_activity_path, remote: true, class: "btn btn-success"

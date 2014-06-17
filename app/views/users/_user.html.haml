@@ -1,0 +1,14 @@
+.row
+  .col-lg-12
+    .jumbotron
+      %p
+        %strong Name:
+        = @user.name
+      %p
+        %strong Note:
+        = @user.note
+      %p
+        %strong Email:
+        = @user.email
+      = link_to 'Edit', edit_user_path(@user), remote: true, class: "btn btn-success"
+      = link_to 'Back', users_path, remote: true, class: "btn btn-success"

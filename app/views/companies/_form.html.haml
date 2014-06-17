@@ -1,5 +1,5 @@
 .form-horizontal
-  = form_for(@company) do |f|
+  = form_for(@company,remote: true) do |f|
     - if @company.errors.any?
       #error_explanation.alert.alert-warning
         %h2

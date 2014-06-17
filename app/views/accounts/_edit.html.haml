@@ -1,0 +1,39 @@
+.row
+  .col-lg-12
+    %h1.page-header Editing user
+    .form-horizontal
+      = form_for :account,url: account_path, method: :patch do |f|
+        - if @account.errors.any?
+          #error_explanation.alert.alert-warning
+            %h2
+              = pluralize(@account.errors.count, "error")
+              prohibited this user from being saved:
+            %ul
+              - @account.errors.full_messages.each do |message|
+                %li= message
+        .form-group
+          .col-md-offset-3.col-md-1
+            = f.label :name,{class: "form-label"}
+          .col-md-7
+            = f.text_field :name,{autofocus: true, class: "form-control"}
+        .form-group
+          .col-md-offset-3.col-md-1
+            = f.label :email,{class: "form-label"}
+          .col-md-7
+            = f.email_field :email,{class: "form-control"}
+        .form-group
+          .col-md-offset-3.col-md-1
+            = f.label :password,{class: "form-label"}
+          .col-md-7
+            = f.password_field :password,{class: "form-control"}
+        .form-group
+          .col-md-offset-3.col-md-1
+            = f.label :note,{class: "form-label"}
+          .col-md-7
+            = f.text_area :note,{class: "form-control", rows: 3}
+        .form-group
+          = f.submit "Save",class: "btn btn-primary col-md-offset-4 col-md-1"
+
+
+    = link_to 'Show', account_path(@account), remote: true, class: "btn btn-success"
+    =link_to 'Back', accounts_path, remote: true, class: "btn btn-success"

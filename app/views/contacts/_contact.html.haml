@@ -1,0 +1,23 @@
+.jumbotron
+  %p
+    %strong Name:
+    = @contact.name
+  %p
+    %strong Note:
+    = @contact.note
+  %p
+    %strong Users:
+    - users = search_users(@contact.id)
+    - if users.present?
+      = users
+    - else
+      Nothing
+  %p
+    %strong Companies:
+    - companies = search_companies(@contact.id)
+    - if companies.present?
+      = search_companies(@contact.id) 
+    -else
+      Nothing  
+  = link_to 'Edit', edit_contact_path(@contact),{class: "btn btn-success",remote: true}
+  = link_to 'Back', contacts_path,{class: "btn btn-success",remote: true}

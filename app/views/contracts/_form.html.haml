@@ -1,5 +1,5 @@
 .form-horizontal
-  = form_for(@contract) do |f|
+  = form_for(@contract,remote: true) do |f|
     - if @contract.errors.any?
       #error_explanation.alert.alert-warning
         %h2
@@ -59,4 +59,4 @@
       .col-md-1
         = f.select :contacts, contact_array,{prompt: "Please select",include_blank: true}
     .form-group
-      = f.submit "Create",class: "btn btn-primary col-md-offset-4 col-md-1"
+      = f.submit "Save",class: "btn btn-primary col-md-offset-4 col-md-1"

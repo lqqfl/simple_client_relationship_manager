@@ -1,0 +1,6 @@
+.row
+  .col-lg-12
+    %h1.page-header Editing user
+    = render 'form'
+    = link_to 'Show', @user, remote: true, class: "btn btn-success"
+    =link_to 'Back', users_path, remote: true, class: "btn btn-success"

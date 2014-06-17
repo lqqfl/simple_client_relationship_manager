@@ -1,0 +1,32 @@
+.row
+  .col-lg-12
+    %h1.page-header 
+      Listing contracts
+      %span.badge 
+        = @contract_counts
+    %table.table.table-striped.talbe-hover.text-center
+      %thead
+        %tr
+          %th.col-md-2.text-center Name
+          %th.col-md-1.text-center Amount
+          %th.col-md-2.text-center Start
+          %th.col-md-2.text-center End
+          %th.col-md-1.text-center Company
+          %th.col-md-2.text-center Contact
+          %th.col-md-1{:colspan => "3"}
+      %tbody
+        - if @contract_counts > 0
+          - @contracts.each do |contract|
+            %tr
+              %td= contract.name
+              %td= number_to_currency(contract.exp_amount, unit: "￥")
+              %td= contract.start_time.to_s(:db)
+              %td= contract.end_time
+              %td= contract_companies(contract.id)
+              %td= contract_contacts(contract.id)
+              %td= link_to 'Show', contract, remote: true,class: "btn btn-primary"
+              %td= link_to 'Edit', edit_contract_path(contract), remote: true,class: "btn btn-info"
+              %td= link_to 'Destroy', contract, method: :delete, data: { confirm: 'Are you sure?' }, remote: true,class: "btn btn-warning"
+    = will_paginate @contracts, renderer: BootstrapPagination::Rails
+    %br/
+    = link_to 'New Contract', new_contract_path, remote: true,class: "btn btn-success"

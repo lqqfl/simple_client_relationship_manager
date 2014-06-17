@@ -1,0 +1,6 @@
+.row
+  .col-lg-12
+    %h1.page-header Editing contract
+    = render 'form'
+    = link_to 'Show', @contract, remote: true,class: "btn btn-success"
+    = link_to 'Back', contracts_path, remote: true,class: "btn btn-success"

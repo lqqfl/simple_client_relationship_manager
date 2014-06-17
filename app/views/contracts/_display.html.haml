@@ -1,0 +1,23 @@
+.row
+  .col-lg-12
+    .jumbotron
+      %p
+        %strong Name:
+        = @contract.name
+      %p
+        %strong Note:
+        = @contract.note
+      %p
+        %strong Start:
+        = @contract.start_time
+      %p
+        %strong End:
+        = @contract.end_time
+      %p
+        %strong Exp:
+        = number_to_currency(@contract.exp_amount, unit: "￥")
+      %p
+        %strong Real:
+        = number_to_currency(@contract.real_amount, unit: "￥")
+      = link_to 'Edit', edit_contract_path(@contract), remote: true,class: "btn btn-success"
+      = link_to 'Back', contracts_path, remote: true,class: "btn btn-success"

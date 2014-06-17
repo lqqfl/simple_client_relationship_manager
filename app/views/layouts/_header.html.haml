@@ -14,7 +14,7 @@
         %i.fa.fa-caret-down
       %ul.dropdown-menu.dropdown-user
         %li
-          %a{:href => "#{user_path(current_user)}"}
+          %a{:href => "#{account_path(current_user)}"}
             %i.fa.fa-user.fa-fw
             User Profile
         %li
@@ -60,34 +60,42 @@
             %span.fa.arrow
           %ul.nav.nav-second-level.collapse
             %li
-              %a{:href => "#{companies_path}"}
+              %a{:href => "#{companies_path}",data: { remote: true}}
                 Customers
             %li
-              %a{:href => "#{contacts_path}"}
+              %a{:href => "#{contacts_path}",data: { remote: true}}
                 Contacts
             %li
-              %a{:href => "#{activities_path}"}
+              %a{:href => "#{activities_path}",data: { remote: true}}
                 Activities
             %li
-              %a{:href => "#{opportunities_path}"}
+              %a{:href => "#{opportunities_path}",data: { remote: true}}
                 Opportunities
+            %li
+              %a{:href=>"#{contracts_path}",data: { remote: true}}
+                %i.fa.fa-files-o.fa-fw
+                Contract            
         %li
-          %a{:href=>"#{companies_path}"}
+          %a{:href=>"#{companies_path}",data: { remote: true}}
             %i.fa.fa-table.fa-fw
             Customer
         %li
-          %a{:href=>"#{contacts_path}"}
+          %a{:href=>"#{contacts_path}",data: { remote: true} }
             %i.fa.fa-edit.fa-fw
             Contact
         %li
-          %a{:href=>"#{activities_path}"}
+          %a{:href=>"#{activities_path}",data: { remote: true}}
             %i.fa.fa-bar-chart-o.fa-fw
             Activity
         %li
-          %a{:href=>"#{opportunities_path}"}
+          %a{:href=>"#{opportunities_path}",data: { remote: true}}
             %i.fa.fa-files-o.fa-fw
             Opportunity
         %li
-          %a{:href=>"#{users_path}"}
+          %a{:href=>"#{contracts_path}",data: { remote: true}}
+            %i.fa.fa-files-o.fa-fw
+            Contract
+        %li
+          %a{:href=>"#{accounts_path}",data: { remote: true}}
             %i.fa.fa-wrench.fa-fw
             Users

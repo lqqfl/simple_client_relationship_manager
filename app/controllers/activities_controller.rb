@@ -1,11 +1,10 @@
 class ActivitiesController < ApplicationController
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
+  before_action :get_counts, only: [:index, :show, :update, :create,:destroy]
   # GET /activities
   # GET /activities.json
   def index
-    @activities = Activity.all
-    @activity_counts = Activity.count
   end
 
   # GET /activities/1
@@ -26,16 +25,16 @@ class ActivitiesController < ApplicationController
   # POST /activities.json
   def create
     @activity = Activity.new(activity_params)
-
-    respond_to do |format|
+    
+    respond_to do |f|
       if @activity.save
         relationship_operator(relation_params)
-
-        format.html { redirect_to @activity, notice: 'Activity was successfully created.' }
-        format.json { render :show, status: :created, location: @activity }
+        f.js {}
+        f.html { redirect_to @activity, notice: 'Activity was successfully created.' }
+        f.json { render :show, status: :created, location: @activity }
       else
-        format.html { render :new }
-        format.json { render json: @activity.errors, status: :unprocessable_entity }
+        f.html { render :new }
+        f.json { render json: @activity.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -46,7 +45,7 @@ class ActivitiesController < ApplicationController
     respond_to do |format|
       if @activity.update(activity_params)
         relationship_operator(relation_params)
-        
+        format.js
         format.html { redirect_to @activity, notice: 'Activity was successfully updated.' }
         format.json { render :show, status: :ok, location: @activity }
       else
@@ -63,6 +62,7 @@ class ActivitiesController < ApplicationController
     @activity.destroy
 
     respond_to do |format|
+      format.js
       format.html { redirect_to activities_url, notice: 'Activity was successfully destroyed.' }
       format.json { head :no_content }
     end
@@ -77,6 +77,11 @@ class ActivitiesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def activity_params
       params.require(:activity).permit(:name, :time, :note)
+    end
+
+    def get_counts
+      @activities = Activity.all.paginate(page: params[:page], per_page: 5)
+      @activity_counts = Activity.count  
     end
 
     def relation_params

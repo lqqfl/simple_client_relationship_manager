@@ -1,11 +1,10 @@
 class ContactsController < ApplicationController
   before_action :set_contact, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
+  before_action :get_counts, only: [:index, :create, :update,:destroy]
   # GET /contacts
   # GET /contacts.json
   def index
-    @contacts = Contact.all
-    @contact_counts = Contact.count
   end
 
   # GET /contacts/1
@@ -16,6 +15,9 @@ class ContactsController < ApplicationController
   # GET /contacts/new
   def new
     @contact = Contact.new
+    respond_to do |f|
+      f.js{}
+    end
   end
 
   # GET /contacts/1/edit
@@ -28,11 +30,10 @@ class ContactsController < ApplicationController
   def create
     parameters = contact_params
     @contact = Contact.new(name: parameters[:name], note: parameters[:note])
-
     respond_to do |format|
       if @contact.save
         relationship_operator(parameters)
-
+        format.js {}
         format.html { redirect_to @contact, notice: 'Contact was successfully created.' }
         format.json { render :show, status: :created, location: @contact }
       else
@@ -50,7 +51,7 @@ class ContactsController < ApplicationController
     respond_to do |format|
       if @contact.update(name: parameters[:name], note: parameters[:note])
         relationship_operator(contact_params)
-
+        format.js
         format.html { redirect_to @contact, notice: 'Contact was successfully updated.' }
         format.json { render :show, status: :ok, location: @contact }
       else
@@ -65,9 +66,11 @@ class ContactsController < ApplicationController
   def destroy
     empty_relationship(@contact.id)
     @contact.destroy
+
     respond_to do |format|
-      format.html { redirect_to contacts_url, notice: 'Contact was successfully destroyed.' }
-      format.json { head :no_content }
+      format.js {}
+      # format.html { redirect_to contacts_url, notice: 'Contact was successfully destroyed.' }
+      # format.json { head :no_content }
     end
   end
 
@@ -110,4 +113,8 @@ class ContactsController < ApplicationController
       end    
     end
 
+    def get_counts
+      @contacts = Contact.all.paginate(page: params[:page], per_page: 5)
+      @contact_counts = Contact.count  
+    end
 end

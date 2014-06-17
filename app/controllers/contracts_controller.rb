@@ -1,11 +1,10 @@
 class ContractsController < ApplicationController
   before_action :set_contract, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
+  before_action :get_counts, except: [:new]
   # GET /contracts
   # GET /contracts.json
   def index
-    @contracts = Contract.all
-    @contract_counts = Contract.count
   end
 
   # GET /contracts/1
@@ -30,6 +29,7 @@ class ContractsController < ApplicationController
     respond_to do |format|
       if @contract.save
         relationship_operator(relation_params)
+        format.js
         format.html { redirect_to @contract, notice: 'Contract was successfully created.' }
         format.json { render :show, status: :created, location: @contract }
       else
@@ -45,6 +45,7 @@ class ContractsController < ApplicationController
     respond_to do |format|
       if @contract.update(contract_params)
         relationship_operator(relation_params)
+        format.js
         format.html { redirect_to @contract, notice: 'Contract was successfully updated.' }
         format.json { render :show, status: :ok, location: @contract }
       else
@@ -60,6 +61,7 @@ class ContractsController < ApplicationController
     empty_relationship(@contract.id)
     @contract.destroy
     respond_to do |format|
+      format.js
       format.html { redirect_to contracts_url, notice: 'Contract was successfully destroyed.' }
       format.json { head :no_content }
     end
@@ -74,6 +76,11 @@ class ContractsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def contract_params
       params.require(:contract).permit(:name, :exp_amount, :real_amount,:note, :start_time, :end_time)  
+    end
+
+    def get_counts
+      @contracts = Contract.all.paginate(page: params[:page], per_page: 5)
+      @contract_counts = Contract.count      
     end
 
     def relation_params

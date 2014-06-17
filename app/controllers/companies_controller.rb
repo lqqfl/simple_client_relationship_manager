@@ -1,11 +1,10 @@
 class CompaniesController < ApplicationController
   before_action :set_company, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
+  before_action :get_counts, only: [:index, :update, :destroy, :create]
   # GET /companies
   # GET /companies.json
   def index
-    @companies = Company.all
-    @company_counts = Company.count
   end
 
   # GET /companies/1
@@ -31,6 +30,7 @@ class CompaniesController < ApplicationController
     respond_to do |format|
       if @company.save
         relationship_operator(parameters)
+        format.js
         format.html { redirect_to @company, notice: 'Company was successfully created.' }
         format.json { render :show, status: :created, location: @company }
       else
@@ -47,11 +47,11 @@ class CompaniesController < ApplicationController
     respond_to do |format|
       if @company.update(name: parameters[:name], note: parameters[:note])
         if relationship_operator(parameters)
+          format.js
           format.html { redirect_to @company, notice: 'Company was successfully updated.' }
         else
           format.html { redirect_to @company, notice: 'The company has associated the user you selected.' }
         end
-        format.json { render :show, status: :ok, location: @company }
       else
         format.html { render :edit }
         format.json { render json: @company.errors, status: :unprocessable_entity }
@@ -65,6 +65,7 @@ class CompaniesController < ApplicationController
     empty_relationship(@company.id)
     @company.destroy
     respond_to do |format|
+      format.js
       format.html { redirect_to companies_url, notice: 'Company was successfully destroyed.' }
       format.json { head :no_content }
     end
@@ -79,6 +80,11 @@ class CompaniesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def company_params
       params.require(:company).permit(:name, :note, :users)
+    end
+
+    def get_counts
+      @companies = Company.all.paginate(page: params[:page], per_page: 8)
+      @company_counts = Company.count      
     end
 
     def empty_relationship(id)

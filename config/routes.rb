@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  
   devise_for :users
+  
+  resources :accounts  
   
   resources :relationships
 
@@ -10,7 +11,6 @@ Rails.application.routes.draw do
 
   resources :opportunities
 
-  resources :users
 
   resources :contacts
 
