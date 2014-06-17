@@ -5,6 +5,9 @@
   %p
     %strong Note:
     = @user.note
+  %p
+    %strong Email:
+    = @user.email
   .btn.btn-info  
     = link_to 'Edit', edit_user_path(@user)
   .btn.btn-info  

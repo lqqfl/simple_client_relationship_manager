@@ -44,37 +44,23 @@ module ApplicationHelper
     @sources2 = Contract.where("created_at > ?", Time.now-14.days).order("created_at desc")
   end
 
+  def timeline_sources_json(data)
+    arr = []
+    data.each do |t|
+      arr.push({startDate: t.created_at, headline: t.name, text: sanitize(t.note.gsub(/\r?\n/, "<br/>"))})
+    end
+    arr
+  end
+
   def timeline_datas
-    timeline
-    temp = @sources.collect{|p|
-      "{
-      'startDate': '#{p.created_at.strftime("%Y,%m,%d")}',
-      'headline': '#{p.name}',
-      'text': '#{sanitize p.note.gsub(/\r?\n/, "<br/>")}',
-      }"
-    }.join(",").html_safe
-    # timeline2
-    # temp << @sources1.collect{|p|
-    #   "{
-    #   'startDate': '#{p.created_at.strftime("%Y,%m,%d")}',
-    #   'headline': '#{p.name}',
-    #   'text': '#{sanitize p.note.gsub(/\r?\n/, "<br/>")}',
-    #   }"
-    # }.join(",").html_safe
-    # timeline3
-    # temp << @sources2.collect{|p|
-    #   "{
-    #   'startDate': '#{p.created_at.strftime("%Y,%m,%d")}',
-    #   'headline': '#{p.name}',
-    #   'text': '#{sanitize p.note.gsub(/\r?\n/, "<br/>")}',
-    #   }"
-    # }.join(",").html_safe
-    # temp.sort_by("startDate")
-    temp
+    arr = []
+    [timeline, timeline2, timeline3].each do |t|
+      arr += timeline_sources_json t
+    end
+    temp = arr.sort_by{|h| h[:startDate]}.reverse.map { |e| e.to_json }.join(",").html_safe
   end
 
   def charts
-    @num = User.find_contacts(current_user.id).count
     @chart = User.sale_situation_chart(current_user.id)
     @chart2 = LazyHighCharts::HighChart.new('graph') do |f|
       f.title(:text => "Population vs GDP For 5 Big Countries [2009]")
