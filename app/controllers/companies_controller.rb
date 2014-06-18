@@ -83,8 +83,9 @@ class CompaniesController < ApplicationController
     end
 
     def get_counts
-      @companies = Company.all.paginate(page: params[:page], per_page: 8)
-      @company_counts = Company.count      
+      @q = Company.search(params[:q])
+      @companies = @q.result.paginate(:page => params[:page], :per_page => 5)
+      @company_counts = Company.count         
     end
 
     def empty_relationship(id)

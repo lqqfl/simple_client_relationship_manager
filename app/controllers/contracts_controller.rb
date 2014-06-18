@@ -79,7 +79,8 @@ class ContractsController < ApplicationController
     end
 
     def get_counts
-      @contracts = Contract.all.paginate(page: params[:page], per_page: 5)
+      @q = Contract.search(params[:q])
+      @contracts = @q.result.paginate(page: params[:page], per_page: 5)
       @contract_counts = Contract.count      
     end
 

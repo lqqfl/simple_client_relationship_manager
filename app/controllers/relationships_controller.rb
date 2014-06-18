@@ -20,7 +20,8 @@ class RelationshipsController < ApplicationController
     end
 
     def get_counts
-      @relationships = Relationship.paginate(:page => params[:page], :per_page => 15)
+      @q = Relationship.search(params[:q])
+      @relationships = @q.result.paginate(:page => params[:page], :per_page => 15)
       @relationship_counts = Relationship.count  
     end
 end

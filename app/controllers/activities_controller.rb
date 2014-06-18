@@ -80,8 +80,9 @@ class ActivitiesController < ApplicationController
     end
 
     def get_counts
-      @activities = Activity.all.paginate(page: params[:page], per_page: 5)
-      @activity_counts = Activity.count  
+      @q = Activity.search(params[:q])
+      @activities = @q.result.paginate(:page => params[:page], :per_page => 5)
+      @activity_counts = Activity.count      
     end
 
     def relation_params

@@ -52,3 +52,5 @@ gem 'will_paginate-bootstrap'
 gem 'timelineJS-rails', '~> 1.1.5'
 # chart
 gem 'lazy_high_charts'
+# search
+gem "ransack", github: "activerecord-hackery/ransack", branch: "rails-4.1"

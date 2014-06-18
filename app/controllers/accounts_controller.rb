@@ -75,8 +75,13 @@ class AccountsController < ApplicationController
       params.require(:account).permit(:name, :note, :email)
     end
 
+    def search_parms
+      params.require(:q).permit(:name,:note,:email)
+    end
+
     def get_counts
-      @accounts = User.paginate(:page => params[:page], :per_page => 5)
-      @account_counts = User.count      
+      @q = User.search(params[:q])
+      @accounts = @q.result.paginate(:page => params[:page], :per_page => 5)
+      @account_counts = User.count
     end
 end

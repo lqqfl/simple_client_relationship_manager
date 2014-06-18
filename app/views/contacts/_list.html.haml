@@ -5,18 +5,19 @@
       %span.badge 
         = @contact_counts
     .form-group
-      .col-md-3
-        %input.form-control{placeholder: "Name"}
-      .col-md-3
-        %input.form-control{placeholder: "Note"}
-
+      = search_form_for @q do |f|
+        .col-md-3
+          = f.search_field :name,{placeholder: "Name",class: 'form-control'}
+        .col-md-3
+          = f.search_field :note,{placeholder: "Note",class: 'form-control'}
+        = f.submit  'Search',class: "btn-primaryn btn-primary"
     %table.table.table-striped.talbe-hover.text-center
       %thead
         %tr
-          %th.col-md-2.text-center Name
-          %th.col-md-2.text-center Note
-          %th.col-md-3.text-center Users
-          %th.col-md-2.text-center Companies
+          = content_tag :th, sort_link(@q,:name),class: "col-md-2 text-center"
+          = content_tag :th, sort_link(@q,:note),class: "col-md-2 text-center"
+          %th.col-md-3.text-center User
+          %th.col-md-2.text-center Company
           %th.col-md-1{:colspan => "3"}
       %tbody
         - if @contact_counts > 0

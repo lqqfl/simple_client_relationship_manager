@@ -76,7 +76,8 @@ class UsersController < ApplicationController
     end
 
     def get_counts
-      @users = User.paginate(:page => params[:page], :per_page => 5)
+      @q = User.search(params[:q])
+      @users = @q.result.paginate(:page => params[:page], :per_page => 5)
       @user_counts = User.count      
     end
 end

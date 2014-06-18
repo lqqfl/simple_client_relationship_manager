@@ -4,12 +4,18 @@
       Listing users
       %span.badge 
         = @account_counts
+    .form-group
+      = search_form_for @q,url: accounts_path do |f|
+        = f.search_field :name,{placeholder: "Name",class: 'form-control col-md-2'}
+        = f.search_field :note,{placeholder: "Note",class: 'form-control col-md-2'}
+        = f.search_field :email,{placeholder: "Email",class: 'form-control col-md-2'}
+        = f.submit  'Search',class: "btn btn-primary"
     %table.table.table-striped.talbe-hover.text-center
       %thead
         %tr
-          %th.col-md-3.text-center Name
-          %th.col-md-3.text-center Note
-          %th.col-md-3.text-center E-mail
+          = content_tag :th, sort_link(@q,:name),class: "col-md-3"
+          = content_tag :th, sort_link(@q,:note),class: "col-md-3"
+          = content_tag :th, sort_link(@q,:email),class: "col-md-3"
           %th.col-md-1{:colspan => "3"}
       %tbody
         - if @account_counts > 0  

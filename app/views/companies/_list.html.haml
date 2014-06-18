@@ -7,8 +7,8 @@
     %table.table.table-striped.talbe-hover.text-center
       %thead
         %tr
-          %th.col-md-3.text-center Name
-          %th.col-md-3.text-center Note
+          = content_tag :th, sort_link(@q,:name),class: "col-md-3 text-center"
+          = content_tag :th, sort_link(@q,:note),class: "col-md-3 text-center"
           %th.col-md-3.text-center Users
           %th.col-md-1{:colspan => "3"}
       %tbody

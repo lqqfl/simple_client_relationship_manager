@@ -7,10 +7,10 @@
     %table.table.table-striped.talbe-hover.text-center
       %thead
         %tr
-          %th.col-md-2.text-center Name
-          %th.col-md-1.text-center Amount
-          %th.col-md-2.text-center Start
-          %th.col-md-2.text-center End
+          = content_tag :th, sort_link(@q,:name),class: "col-md-1 text-center"
+          = content_tag :th, sort_link(@q,:amount),class: "col-md-1 text-center"
+          = content_tag :th, sort_link(@q,:start),class: "col-md-2 text-center"
+          = content_tag :th, sort_link(@q,:end),class: "col-md-2 text-center"
           %th.col-md-1.text-center Company
           %th.col-md-2.text-center Contact
           %th.col-md-1{:colspan => "3"}

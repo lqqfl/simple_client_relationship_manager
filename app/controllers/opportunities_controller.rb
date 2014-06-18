@@ -108,7 +108,8 @@ class OpportunitiesController < ApplicationController
     end
 
     def get_counts
-      @opportunities = Opportunity.all.paginate(page: params[:page], per_page: 5)
+      @q = Opportunity.search(params[:q])
+      @opportunities = @q.result.paginate(page: params[:page], per_page: 5)
       @opportunity_counts = Opportunity.count      
     end
 end

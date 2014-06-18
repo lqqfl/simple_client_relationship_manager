@@ -1,5 +1,11 @@
 module ApplicationHelper
   
+
+  def search
+    # @q = {contact: "#{contacts_path}",contract: "#{contracts_path}",user: "#{accounts_path}", opportunity: "#{opportunities_path}", activity: "#{activities_path}"}.find(params[:q])
+    # @path = @q
+  end
+
   def user_array
     User.all.map { |item| [item.name, item.id] }
   end

@@ -114,7 +114,8 @@ class ContactsController < ApplicationController
     end
 
     def get_counts
-      @contacts = Contact.all.paginate(page: params[:page], per_page: 5)
       @contact_counts = Contact.count  
+      @q = Contact.search(params[:q])
+      @contacts = @q.result.paginate(page: params[:page], per_page: 5)      
     end
 end
