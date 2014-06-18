@@ -4,6 +4,13 @@
       Listing contracts
       %span.badge 
         = @contract_counts
+    .form-group
+      = search_form_for @q do |f|
+        = f.search_field :name_cont,{placeholder: "Name",class: 'form-control col-md-2'}
+        = f.search_field :exp_amount_cont,{placeholder: "Amount",class: 'form-control col-md-2'}
+        = f.search_field :start_time_cont,{placeholder: "Start",class: 'form-control col-md-2'}
+        = f.search_field :end_time_cont,{placeholder: "End",class: 'form-control col-md-2'}
+        = f.submit  'Search',class: "btn btn-primary"
     %table.table.table-striped.talbe-hover.text-center
       %thead
         %tr

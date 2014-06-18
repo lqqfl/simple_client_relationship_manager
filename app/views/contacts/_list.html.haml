@@ -7,9 +7,9 @@
     .form-group
       = search_form_for @q do |f|
         .col-md-3
-          = f.search_field :name,{placeholder: "Name",class: 'form-control'}
+          = f.search_field :name_cont,{placeholder: "Name",class: 'form-control'}
         .col-md-3
-          = f.search_field :note,{placeholder: "Note",class: 'form-control'}
+          = f.search_field :note_cont,{placeholder: "Note",class: 'form-control'}
         = f.submit  'Search',class: "btn-primaryn btn-primary"
     %table.table.table-striped.talbe-hover.text-center
       %thead
