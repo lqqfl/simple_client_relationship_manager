@@ -8,4 +8,8 @@ class WelcomeController < ApplicationController
     end
   end
 
+  def search
+    
+  end
+
 end

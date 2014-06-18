@@ -11,11 +11,11 @@ Rails.application.routes.draw do
 
   resources :opportunities
 
-
   resources :contacts
 
   resources :companies
 
+  get 'welcome/search', to: "welcome#search"
   root 'welcome#index', as: "welcome"
 
   # The priority is based upon order of creation: first created -> highest priority.

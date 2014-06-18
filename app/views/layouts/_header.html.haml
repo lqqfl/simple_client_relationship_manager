@@ -31,12 +31,9 @@
       %ul.nav#side-menu
         %li.sidebar-search
           .input-group.custom-search-form
-            -# - search
-            -# = search_form_for @q do |f|
-            -#   = f.search_field :visit,class: "form-control", placeholder: "Search..."
-            %span.input-group-btn
-              %button.btn.btn-default{:type=>'button'}
-                %i.fa.fa-search
+            = form_for @visit, welcome_search_path do |f|
+            = f.text_field :path,class: "form-control"
+            = f.submit 'Search',class: "btn btn-default"
         %li
           %a{:href => "#"}
             %i.fa.fa-dashboard.fa-fw
