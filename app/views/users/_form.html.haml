@@ -1,5 +1,5 @@
 .form-horizontal
-  = form_for @user do |f|
+  = form_for @user, html: { multipart: true} do |f|
     - if @user.errors.any?
       #error_explanation.alert.alert-warning
         %h2
@@ -8,6 +8,16 @@
         %ul
           - @user.errors.full_messages.each do |message|
             %li= message
+    .form-group
+      .col-md-offset-3.col-md-1
+        = f.label :avatar,{class: "form-label"}
+      .col-md-7
+        = image_tag(@user.avatar_url) if @user.avatar? ,{class: "form-control"}
+        = f.file_field :avatar,{class: "form-control"}
+        = f.text_field :remote_avatar_url,{class: "form-control"}
+        = f.hidden_field :avatar_cache
+        = f.check_box :remove_avatar
+          Remove avatar
     .form-group
       .col-md-offset-3.col-md-1
         = f.label :name,{class: "form-label"}

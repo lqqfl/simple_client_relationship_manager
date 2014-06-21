@@ -2,6 +2,9 @@
   .col-lg-12
     .jumbotron
       %p
+        %strong Avatar:
+        = image_tag(@account.avatar_url(:thumb)) if @account.avatar?
+      %p
         %strong Name:
         = @account.name
       %p

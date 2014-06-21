@@ -13,6 +13,16 @@
                 %li= message
         .form-group
           .col-md-offset-3.col-md-1
+            = f.label :avatar,{class: "form-label"}
+          .col-md-7
+            = image_tag(@account.avatar_url(:thumb)) if @account.avatar?
+            = f.file_field :avatar,{accept: 'image/png,image/gif,image/jpeg,image/jpg'}
+            = f.text_field :remote_avatar_url,{class: "form-control", placeholder: "The URL of image..."}
+            = f.hidden_field :avatar_cache
+            = f.check_box :remove_avatar
+            Remove avatar
+        .form-group
+          .col-md-offset-3.col-md-1
             = f.label :name,{class: "form-label"}
           .col-md-7
             = f.text_field :name,{autofocus: true, class: "form-control"}
@@ -21,11 +31,11 @@
             = f.label :email,{class: "form-label"}
           .col-md-7
             = f.email_field :email,{class: "form-control"}
-        .form-group
-          .col-md-offset-3.col-md-1
-            = f.label :password,{class: "form-label"}
-          .col-md-7
-            = f.password_field :password,{class: "form-control"}
+        -# .form-group
+        -#   .col-md-offset-3.col-md-1
+        -#     = f.label :password,{class: "form-label"}
+        -#   .col-md-7
+        -#     = f.password_field :password,{class: "form-control"}
         .form-group
           .col-md-offset-3.col-md-1
             = f.label :note,{class: "form-label"}

@@ -54,3 +54,6 @@ gem 'timelineJS-rails', '~> 1.1.5'
 gem 'lazy_high_charts'
 # search
 gem "ransack", github: "activerecord-hackery/ransack", branch: "rails-4.1"
+# image
+gem 'carrierwave'
+gem 'mini_magick'

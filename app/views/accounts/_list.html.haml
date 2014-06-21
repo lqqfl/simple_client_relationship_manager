@@ -2,7 +2,7 @@
   .col-lg-12
     %h1.page-header
       Listing users
-      %span.badge 
+      %span.badge
         = @account_counts
     .form-group
       = search_form_for @q,url: accounts_path do |f|
@@ -13,14 +13,16 @@
     %table.table.table-striped.talbe-hover.text-center
       %thead
         %tr
-          = content_tag :th, sort_link(@q,:name),class: "col-md-3"
-          = content_tag :th, sort_link(@q,:note),class: "col-md-3"
-          = content_tag :th, sort_link(@q,:email),class: "col-md-3"
+          %th.col-md-2.text-center Avatar
+          = content_tag :th, sort_link(@q,:name),class: "col-md-2 text-center"
+          = content_tag :th, sort_link(@q,:note),class: "col-md-2 text-center"
+          = content_tag :th, sort_link(@q,:email),class: "col-md-3 text-center"
           %th.col-md-1{:colspan => "3"}
       %tbody
-        - if @account_counts > 0  
+        - if @account_counts > 0
           - @accounts.each do |account|
             %tr
+              %td= image_tag(account.avatar_url(:mini)) if account.avatar?
               %td= account.name
               %td= account.note
               %td= account.email

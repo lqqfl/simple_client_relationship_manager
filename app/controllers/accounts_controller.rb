@@ -28,7 +28,7 @@ class AccountsController < ApplicationController
     respond_to do |format|
       if @account.save
         format.js {}
-        format.html { redirect_to @account, notice: 'User was successfully created.' }
+        format.html { redirect_to account_path(@account), notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @account }
       else
         format.html { render :new }
@@ -40,7 +40,7 @@ class AccountsController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-
+    @account.remove_avatar! if @account.avatar? == 1
     respond_to do |format|
       if @account.update user_params
         format.js {}
@@ -72,7 +72,7 @@ class AccountsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:account).permit(:name, :note, :email)
+      params.require(:account).permit(:name, :note, :email,:avatar,:avatar_cache,:remote_avatar_url,:remove_avatar,:password)
     end
 
     def search_parms

@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   has_many :contacts, through: :relationships
   has_many :contracts, through: :relationships
 
+  mount_uploader :avatar, AvatarUploader
+
   def self.find_contacts(id)
     ids = []
     targets = []
